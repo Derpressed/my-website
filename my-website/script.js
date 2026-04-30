@@ -35,7 +35,8 @@ button.addEventListener("click", () => {
 
   snakeBody.style.left = 0;
   snakeBody.style.top = 0;
-  div = 1;
+  
+  dir = 1;
 
   points = 0;
 });
@@ -62,7 +63,7 @@ setInterval(() => {
     x -= pixels;
 
     if (x <= 0) {
-      x = (boundaryDiv.clientWidth - snakeBody.offsetWidth + 1);
+      x = (boundaryDiv.clientWidth - snakeBody.offsetWidth);
     }
 
     snakeBody.style.left = x + "px";
