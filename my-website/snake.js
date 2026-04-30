@@ -155,10 +155,10 @@ class Snake {
             let foodYOrigin = foodCoord[3];
             
             if (
-                (this.xPos + this.width) >= (foodXOrigin) && 
-                (this.xPos) <= (foodXOrigin + foodWidth) &&
-                (this.yPos + this.height) >= (foodYOrigin) &&
-                (this.yPos) <= (foodYOrigin + foodHeight)
+                (this.xPos + this.width) > (foodXOrigin) && 
+                (this.xPos) < (foodXOrigin + foodWidth) &&
+                (this.yPos + this.height) > (foodYOrigin) &&
+                (this.yPos) < (foodYOrigin + foodHeight)
             ) {
                 this.ateFood();
             }
