@@ -19,7 +19,7 @@
     height: 50vh;
 }
 
-#snakeBody {
+#snake-head {
     position: absolute;
     
     left: 0px;
@@ -28,6 +28,19 @@
     width: 10px;
     height: 10px;
     background-color: white;
+
+    margin-top: 0px;
+}
+
+.snake-body {
+    position: absolute;
+    
+    left: 0px;
+    top: -10px;
+
+    width: 10px;
+    height: 10px;
+    background-color: rgb(255, 0, 0);
 
     margin-top: 0px;
 }
