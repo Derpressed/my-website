@@ -1,6 +1,7 @@
 const snakeBody = document.getElementById("snakeBody");
 const boundaryDiv = document.getElementById("inner-div");
 const timerText = document.getElementById("timer");
+const button = document.getElementById("testButton");
 
 let x = 0;
 let y = 0;
@@ -28,6 +29,16 @@ function keyPressed(event) {
 }
 
 document.addEventListener("keypress", keyPressed);
+button.addEventListener("click", () => {
+  y = 0;
+  x = 0;
+
+  snakeBody.style.left = 0;
+  snakeBody.style.top = 0;
+  div = 1;
+
+  points = 0;
+});
 
 setInterval(() => {
   
@@ -67,5 +78,4 @@ setInterval(() => {
 
   timerText.textContent = points;
   points += 1;
-  console.log(snakeBody.clientHeight + " " + snakeBody.offsetHeight);
 }, 100); 
