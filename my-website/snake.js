@@ -15,20 +15,42 @@ class Snake {
         this.y = this.initialY;
 
         this.dir = 1; // default going down;
+
+
+        this.height = this.element.offsetHeight;
+        this.width = this.element.offsetWidth;
     }
     
     moveChild(x, y) {
         this.element.style.left = x + "px";
         this.element.style.top = y + "px";
+
+        if (this.child != null) {
+            this.child.moveChild(this.prevPos[0], this.prevPos[1]);
+        }
+
+        const styles = window.getComputedStyle(this.element);
+
+        this.prevPos[0] = parseInt(styles.left);
+        this.prevPos[1] = parseInt(styles.top);
+
+        this.element.style.display = "block";
     }
 
     addChild(snakePart) {
-        this.child = snakePart;
+        if (this.child == null) {
+            this.child = snakePart;
+        } else {
+            this.child.addChild(snakePart);
+        }
     }
 
     move() {
 
-        this.child.moveChild(this.prevPos[0], this.prevPos[1]);
+        if (this.child != null) {
+            this.child.moveChild(this.prevPos[0], this.prevPos[1]);
+        }
+        
 
         if (this.dir == 0) {
             this.y -= pixels;
@@ -72,7 +94,6 @@ class Snake {
 
         this.prevPos[0] = parseInt(styles.left);
         this.prevPos[1] = parseInt(styles.top);
-        console.log(this.prevPos[0]);
     }
 
     changeDir(direction) {
@@ -97,8 +118,50 @@ class Snake {
         this.dir = 1;
         
         if (this.child != null) {
-            this.child.reset();
+            this.child.element.remove();
+            this.child = null;
         }
+
+        const bodyParts = document.querySelectorAll(".snake-body")
+        bodyParts.forEach(part => {
+            part.remove();
+        });
     }
 
+    ateFood() {
+        let newDiv = document.createElement("div");
+        newDiv.classList.add("snake-body");
+        
+        newDiv.style.display = "none";
+        boundaryDiv.appendChild(newDiv);
+        
+        let snakeChild = new Snake(newDiv);
+        this.addChild(snakeChild);
+    }
+
+    foodCollision(arrFood) {
+        const styles = window.getComputedStyle(this.element);
+        this.xPos = parseInt(styles.left);
+        this.yPos = parseInt(styles.top);
+        
+        
+
+        for (let i = 0; i < arrFood.length; i++) { 
+            
+            let foodCoord = arrFood[i].getCoords();
+            let foodHeight = foodCoord[0];
+            let foodWidth = foodCoord[1];
+            let foodXOrigin = foodCoord[2];
+            let foodYOrigin = foodCoord[3];
+            
+            if (
+                (this.xPos + this.width) >= (foodXOrigin) && 
+                (this.xPos) <= (foodXOrigin + foodWidth) &&
+                (this.yPos + this.height) >= (foodYOrigin) &&
+                (this.yPos) <= (foodYOrigin + foodHeight)
+            ) {
+                this.ateFood();
+            }
+        }   
+    }
 }

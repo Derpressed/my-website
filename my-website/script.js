@@ -3,14 +3,10 @@ const boundaryDiv = document.getElementById("inner-div");
 const timerText = document.getElementById("timer");
 const button = document.getElementById("testButton");
 
-const newSnakeChild = document.createElement("div");
-newSnakeChild.classList.add("snake-body");
-boundaryDiv.appendChild(newSnakeChild);
+const food = document.getElementById("food");
+const foodClass = new Food(food);
 
 const snakeHead = new Snake(snakeBody);
-const snakeChild = new Snake(newSnakeChild);
-
-snakeHead.addChild(snakeChild);
 
 
 let pixels = 10;
@@ -38,11 +34,9 @@ function keyPressed(event) {
 }
 
 function gameRun() {
-
   snakeHead.move();
-  
-  
-  
+  snakeHead.foodCollision([foodClass]);
+  timerText.textContent = points;
   points += 1;
 }
 
@@ -68,4 +62,4 @@ setInterval(() => {
   if (running == 1) {
     gameRun();
   }
-}, 25);
+}, 100);
