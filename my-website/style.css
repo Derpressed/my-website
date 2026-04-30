@@ -1,0 +1,42 @@
+.outer-div {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: blue;
+    justify-content: center;
+    align-items: center;
+
+    width: 99vw;
+    height: 98vh;
+}
+
+#inner-div {
+    position: relative;
+    display: flex;
+    background-color: black;
+
+    width: 50vw;
+    height: 50vh;
+}
+
+#snakeBody {
+    position: absolute;
+    
+    left: 0px;
+    top: 0px;
+
+    width: 10px;
+    height: 10px;
+    background-color: white;
+
+    margin-top: 0px;
+}
+
+#timer {
+    background-color: black;
+    height: 20px;
+    width: 50px;
+
+    text-align: center;
+    color: white;
+}   
