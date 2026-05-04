@@ -1,3 +1,5 @@
+
+
 class Snake {
     
     prevPos = [0, 0];
@@ -55,7 +57,7 @@ class Snake {
         if (this.dir == 0) {
             this.y -= pixels;
 
-            if ((this.y) <= 0) {
+            if ((this.y) < 0) {
             this.y = (boundaryDiv.clientHeight - this.element.offsetHeight);
             }
 
@@ -64,7 +66,7 @@ class Snake {
         } else if (this.dir == 1) {
             this.y += pixels;
 
-            if ((this.y + this.element.offsetHeight) >= boundaryDiv.clientHeight) {
+            if ((this.y + this.element.offsetHeight) > boundaryDiv.clientHeight) {
             this.y = 0;
             }
 
@@ -75,7 +77,7 @@ class Snake {
         } else if (this.dir == 2) {
             this.x -= pixels;
 
-            if (this.x <= 0) {
+            if (this.x < 0) {
             this.x = (boundaryDiv.clientWidth - this.element.offsetWidth);
             }
 
@@ -83,7 +85,7 @@ class Snake {
         } else if (this.dir == 3) {
             this.x += pixels;
 
-            if ((this.x + this.element.offsetWidth) >= boundaryDiv.clientWidth) {
+            if ((this.x + this.element.offsetWidth) > boundaryDiv.clientWidth) {
             this.x = 0;
             }
 
@@ -126,9 +128,15 @@ class Snake {
         bodyParts.forEach(part => {
             part.remove();
         });
+
+        for (let i = 0; i < foodArr.length; i++) {
+            foodArr[i].element.remove();
+        }
+
+        foodArr.length = 0;
     }
 
-    ateFood() {
+    ateFood(foodDiv) {
         let newDiv = document.createElement("div");
         newDiv.classList.add("snake-body");
         
@@ -137,14 +145,19 @@ class Snake {
         
         let snakeChild = new Snake(newDiv);
         this.addChild(snakeChild);
+
+        foodDiv.element.remove();
+        points = points + 10;
     }
 
     foodCollision(arrFood) {
         const styles = window.getComputedStyle(this.element);
         this.xPos = parseInt(styles.left);
         this.yPos = parseInt(styles.top);
-        
-        
+
+        if (this.child != null) {
+            this.child.foodCollision(arrFood);
+        }
 
         for (let i = 0; i < arrFood.length; i++) { 
             
@@ -160,8 +173,38 @@ class Snake {
                 (this.yPos + this.height) > (foodYOrigin) &&
                 (this.yPos) < (foodYOrigin + foodHeight)
             ) {
-                this.ateFood();
+                this.ateFood(arrFood[i]);
+                arrFood.splice(i, 1);
             }
         }   
+    }
+
+    snakeCollision(snakeHead = this) {
+        if (this.child == null) {
+            return false;
+        }
+
+        const snakeStyles = window.getComputedStyle(snakeHead.element);
+        const childStyles = window.getComputedStyle(this.child.element);
+
+        const snakeX = parseInt(snakeStyles.left);
+        const snakeY = parseInt(snakeStyles.top);
+        const childX = parseInt(childStyles.left);
+        const childY = parseInt(childStyles.top);
+        const snakeWidth = snakeHead.element.offsetWidth;
+        const snakeHeight = snakeHead.element.offsetHeight;
+        const childWidth = this.child.element.offsetWidth;
+        const childHeight = this.child.element.offsetHeight;
+
+        if (
+            (snakeX + snakeWidth) > childX &&
+            snakeX < (childX + childWidth) &&
+            (snakeY + snakeHeight) > childY &&
+            snakeY < (childY + childHeight)
+        ) {
+            return true;
+        }
+
+        return this.child.snakeCollision(snakeHead);
     }
 }

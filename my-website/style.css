@@ -35,8 +35,8 @@
 .snake-body {
     position: absolute;
     
-    /* left: 0px;
-    top: -10px; */
+    left: 0px;
+    top: -10px;
 
     width: 10px;
     height: 10px;
@@ -54,9 +54,9 @@
     color: white;
 }  
 
-#food {
+.food {
     position: absolute;
-    background-color: blue;
+    background-color: rgb(9, 255, 0);
     left: 50px;
     top: 50px;
     width: 20px;
