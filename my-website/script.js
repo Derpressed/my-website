@@ -21,6 +21,8 @@ let running = 0;
 
 let counter = 0;
 
+let multiplier = 1;
+
 function keyPressed(event) {
   let key = event.key.toLowerCase();
   
@@ -94,5 +96,24 @@ setInterval(() => {
       foodArr.push(Food.addFood());
     }
     counter++;
+
+    multiplier = points / 100
+    console.log(multiplier);
   }
-}, 100);
+}, 100 / multiplier);
+
+function gameLoop() {
+  if (running == 1) {
+    gameRun();
+    if (counter == 20) {
+      counter = 0;
+      foodArr.push(Food.addFood());
+    }
+    counter++;
+    multiplier = Math.max(1, points / 100);
+  }
+
+  setTimeout(gameLoop, 100 / multiplier);
+}
+
+gameLoop();
