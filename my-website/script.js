@@ -8,7 +8,6 @@ const food = document.querySelector(".food");
 
 const snakeHead = new Snake(snakeBody);
 
-
 let foodArr = [];
 
 let pixels = 10;
@@ -36,7 +35,18 @@ function keyPressed(event) {
   }
   const snakePos =  snakeBody.getBoundingClientRect();
 }
+function addBoard(boardPoints) {
 
+  const parent = document.getElementById("best-scores-board");
+  const newDiv = document.createElement("div");
+  newDiv.classList.add("best-score-bracket");
+
+  const scoreChild = document.createElement("p");
+  scoreChild.classList.add("score");
+  scoreChild.textContent = "Score: " + boardPoints;
+  newDiv.appendChild(scoreChild);
+  parent.appendChild(newDiv);
+}
 function gameRun() {
   snakeHead.move();
   snakeHead.foodCollision(foodArr);
@@ -46,10 +56,13 @@ function gameRun() {
     button.textContent = "start";
     timerText.textContent = "0";
     snakeHead.reset();
+    addBoard(points);
     points = 0;
   }
   points += 1;
 }
+
+
 
 document.addEventListener("keypress", keyPressed);
 button.addEventListener("click", () => {
@@ -76,11 +89,10 @@ setInterval(() => {
     gameRun();
 
     // this makes it so that counter resets at the 11th * 100ms (1.10s)
-    if (counter == 11) {
+    if (counter == 20) {
       counter = 0;
       foodArr.push(Food.addFood());
     }
-    console.log(foodArr);
     counter++;
   }
 }, 100);

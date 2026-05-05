@@ -15,6 +15,8 @@
     display: flex;
     background-color: black;
 
+    flex-direction: column;
+
     width: 50vw;
     height: 50vh;
 }
@@ -63,4 +65,37 @@
     height: 20px;
 
     margin-top: 0px;
+}
+
+#best-scores-board {
+    background-color: white;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    width: 300px;
+    height: 100%;
+
+    margin-top: 0px;
+    margin-left: -350px;
+    gap: 5px;
+    padding-top: 5px;
+
+    overflow-y: scroll;
+}
+
+.best-score-bracket {
+    background-color: black;
+
+    text-align: center;
+    color: white;
+
+    height: 60px;
+    width: 96%;
+    margin-left: 5px;
+}
+
+.best-score-bracket p {
+    margin: 0;
+    padding-top: 20px;
 }
