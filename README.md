@@ -7,4 +7,6 @@
 </h2>
 <p>
   Achieved through combination of HTML, CSS, and JavaScript. Utilized JavaScript's global function SetInterval in order to iterate through time for gameState to run.
+
+  Controls: WASD
 </p>
