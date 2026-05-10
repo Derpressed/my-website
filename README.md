@@ -1,6 +1,6 @@
 # Snake Game V1
 
-[Click here to view the website](https://derpressed.github.io/Snake-Game/my-website/)
+[Click here to view the website]([https://derpressed.github.io/Snake-Game/my-website/](https://derpressed.github.io/Snake-Game/my-website/))
 
 <h2>
   Intent and Configurations
